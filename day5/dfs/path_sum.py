@@ -10,4 +10,25 @@ def hasPathSum( root, targetSum):
         return targetSum - root.val == 0
     return hasPathSum(root.left, targetSum - root.val) or hasPathSum(root.right, targetSum - root.val)
 
-## TODO understand and try iterative
+
+class Solution:
+    def hasPathSum(self, root, targetSum):
+        if root is None:
+            return 0
+   
+        stack = [[root, root.val]]      
+        while len(stack) > 0:
+            node, sumSoFar = stack.pop()
+        
+            if node.right:
+                    stack.append([node.right, sumSoFar + node.right.val])
+
+            if node.left:
+                    stack.append([node.left, sumSoFar + node.left.val])
+
+            if node.left is None and node.right is None:
+                    # we have a leaf
+                    if sumSoFar == targetSum:
+                        return True
+                    
+        return False
